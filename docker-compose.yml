@@ -1,6 +1,6 @@
 version: "3.9"
 services:
- voetbal-api:
+ kerst-api:
   image: falcowalko/kerstapi-eindproject:latest
   ports:
     - "8000:8000"
