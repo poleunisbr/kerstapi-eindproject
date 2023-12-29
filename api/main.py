@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from passlib.context import CryptContext
 from datetime import datetime, timedelta
-import jwt
+import jose
 
 import crud
 import database
@@ -54,15 +54,23 @@ def create_jwt_token(data: dict, expires_delta: timedelta = None):
 
 # Token-uitgifte-eindpunt
 @app.post("/token")
-async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends()):
-    authenticate(form_data)
-    access_token_expires = timedelta(minutes=15)
-    access_token = create_jwt_token(
-        data={"sub": form_data.username}, expires_delta=access_token_expires
+def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
+    #Try to authenticate the user
+    user = auth.authenticate_user(db, form_data.username, form_data.password)
+    if not user:
+        raise HTTPException(
+            status_code=401,
+            detail="Incorrect username or password",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    # Add the JWT case sub with the subject(user)
+    access_token = auth.create_access_token(
+        data={"sub": user.email}
     )
+    #Return the JWT as a bearer token to be placed in the headers
     return {"access_token": access_token, "token_type": "bearer"}
 
-# API-eindpunten voor kerstmarkten
+# API-eindpunten
 @app.post("/kerstmarkten/", response_model=Kerstmarkt)
 def create_kerstmarkt(
     markt: Kerstmarkt,
@@ -78,6 +86,16 @@ def read_kerstmarkt(markt_id: int, db: Session = Depends(get_db)):
     if kerstmarkt is None:
         raise HTTPException(status_code=404, detail="Kerstmarkt niet gevonden")
     return kerstmarkt
+
+@app.get("/users/", response_model=list[schemas.User])
+def read_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
+    users = crud.get_users(db, skip=skip, limit=limit)
+    return users
+
+@app.post("/users/", response_model=schemas.User)
+def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
+    return crud.create_user(db, user)
+
 
 # Voeg overige eindpunten voor kerstmarkten, kerstgerechten en kerstdecoraties toe op dezelfde manier.
 
