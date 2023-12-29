@@ -1,6 +1,5 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
-from models import Kerstmarkt, Kerstgerecht, Kerstdecoratie, User
 
 DATABASE_NAME = "kerst.db"
 SQLALCHEMY_DATABASE_URL = f"sqlite:///{DATABASE_NAME}"
