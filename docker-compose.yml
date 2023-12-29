@@ -1,0 +1,11 @@
+version: "3.9"
+services:
+ voetbal-api:
+  image: falcowalko/kerstapi-eindproject:latest
+  ports:
+    - "8000:8000"
+  volumes:
+   - sqlite_volume:/code/sqlitedb
+
+volumes:
+ sqlite_volume:
