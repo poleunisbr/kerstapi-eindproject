@@ -3,4 +3,5 @@ pydantic
 uvicorn
 sqlalchemy
 passlib
+python-jose
 python-jose[cryptography]
