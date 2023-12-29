@@ -30,7 +30,7 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 # Basis authenticatie
 def authenticate(creds: OAuth2PasswordRequestForm = Depends()):
     user = "administrator"
-    hashed_password = "$2b$12$Dq.B3mRP2ISG/cp4oUgIReLfU3Ex0iVJc9A2XYPtSlrbmaeAjLLCC"
+    hashed_password = "$2a$12$KiAqXSH2z3NFSXB.i/rM8uZ.B8WURsVnTWHoaNSGTv007aCQrFak2"
 
     is_correct_username = creds.username == user
     is_correct_password = pwd_context.verify(creds.password, hashed_password)
