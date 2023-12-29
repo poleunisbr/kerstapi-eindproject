@@ -1,8 +1,10 @@
 import secrets
-from fastapi import FastAPI, HTTPException, Depends
+from fastapi import FastAPI, HTTPException, Depends, status
 from sqlalchemy.orm import Session
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from passlib.context import CryptContext
+from datetime import datetime, timedelta
+import jwt
 
 import crud
 import database
@@ -20,9 +22,6 @@ def get_db():
         yield db
     finally:
         db.close()
-
-# Maak een instantie van CryptContext voor wachtwoordhashing
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 # Maak een instantie van CryptContext voor wachtwoordhashing
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
