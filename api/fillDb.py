@@ -1,20 +1,14 @@
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-from database import Base
+# fillDb.py
+
+from sqlalchemy.orm import Session
+from database import create_database, SessionLocal
 from models import Kerstmarkt, Kerstgerecht, Kerstdecoratie, User
 
-# Define your database URL (change it if your database is in a different location)
-DATABASE_URL = "sqlite:///./sqlitedb/kerst.db"
-
-# Create the SQLAlchemy engine
-engine = create_engine(DATABASE_URL)
+# Initialize the database tables
+create_database()
 
 # Create a session
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 db = SessionLocal()
-
-# Initialize the database tables
-Base.metadata.create_all(bind=engine)
 
 # Insert sample data
 sample_markt_1 = Kerstmarkt(naam="Kerstmarkt 1", locatie="Locatie 1", datum="2023-12-25")

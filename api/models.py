@@ -1,32 +1,26 @@
-from sqlalchemy import Column, Integer, String, Float
-from sqlalchemy.orm import relationship
-from database import Base
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker, declarative_base
+from models import Kerstmarkt, Kerstgerecht, Kerstdecoratie, User
 
+DATABASE_NAME = "kerst.db"
+SQLALCHEMY_DATABASE_URL = f"sqlite:///{DATABASE_NAME}"
 
-class Kerstmarkt(Base):
-    __tablename__ = "kerstmarkten"
-    id = Column(Integer, primary_key=True, index=True)
-    naam = Column(String, unique=True, index=True)
-    locatie = Column(String)
-    datum = Column(String)
+engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False})
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-class Kerstgerecht(Base):
-    __tablename__ = "kerstgerechten"
-    id = Column(Integer, primary_key=True, index=True)
-    naam = Column(String, index=True)
-    beschrijving = Column(String)
-    prijs = Column(Float)
+Base = declarative_base()
 
-class Kerstdecoratie(Base):
-    __tablename__ = "kerstdecoraties"
-    id = Column(Integer, primary_key=True, index=True)
-    naam = Column(String, unique=True, index=True)
-    type = Column(String)
-    prijs = Column(Float)
+def create_database():
+    Base.metadata.create_all(bind=engine)
+    print(f"Database {DATABASE_NAME} is aangemaakt of bestaat al.")
 
-class User(Base):
-    __tablename__ = "users"
+def connect_to_database():
+    return engine.connect()
 
-    id = Column(Integer, primary_key=True, index=True)
-    username = Column(String, index=True)
-    email = Column(String, index=True)
+def close_database(connection):
+    if connection:
+        connection.close()
+        print(f"Databaseverbinding is gesloten.")
+
+if __name__ == "__main__":
+    create_database()
