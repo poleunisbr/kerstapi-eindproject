@@ -12,7 +12,7 @@ def create_database():
         conn = sqlite3.connect(DATABASE_NAME)
         cursor = conn.cursor()
 
-        # Maak tabellen voor kerstmarkten, kerstgerechten en kerstdecoraties als deze nog niet bestaan
+        # Maak tabellen voor kerstmarkten, kerstgerechten, kerstdecoraties en gebruikers als deze nog niet bestaan
         cursor.execute("""
             CREATE TABLE IF NOT EXISTS kerstmarkten (
                 id INTEGER PRIMARY KEY,
@@ -37,6 +37,14 @@ def create_database():
                 naam TEXT UNIQUE,
                 type TEXT,
                 prijs REAL
+            )
+        """)
+
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS users (
+                id INTEGER PRIMARY KEY,
+                username TEXT,
+                email TEXT UNIQUE
             )
         """)
 
@@ -65,6 +73,13 @@ engine = create_engine(
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 Base = declarative_base()
+
+class User(Base):
+    __tablename__ = "users"
+
+    id = Column(Integer, primary_key=True, index=True)
+    username = Column(String, index=True)
+    email = Column(String, unique=True, index=True)
 
 if __name__ == "__main__":
     create_database()

@@ -84,3 +84,16 @@ def delete_kerstdecoratie(db: Session, decoratie_id: int):
         db.delete(db_decoratie)
         db.commit()
     return db_decoratie
+
+def create_user(db: Session, user: models.User):
+    db_user = models.User(**user.dict())
+    db.add(db_user)
+    db.commit()
+    db.refresh(db_user)
+    return db_user
+
+def read_user(db: Session, user_id: int):
+    return db.query(models.User).filter(models.User.id == user_id).first()
+
+def read_users(db: Session):
+    return db.query(models.User).all()
