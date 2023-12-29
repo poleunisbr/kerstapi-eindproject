@@ -24,20 +24,44 @@ def get_db():
 # Maak een instantie van CryptContext voor wachtwoordhashing
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
+# Maak een instantie van CryptContext voor wachtwoordhashing
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
 # Basis authenticatie
 def authenticate(creds: OAuth2PasswordRequestForm = Depends()):
     user = "administrator"
-    hashed_password = "$2b$12$Dq.B3mRP2ISG/cp4oUgIReLfU3Ex0iVJc9A2XYPtSlrbmaeAjLLCC"
+    hashed_password = "$2a$12$KiAqXSH2z3NFSXB.i/rM8uZ.B8WURsVnTWHoaNSGTv007aCQrFak2"
 
     is_correct_username = creds.username == user
     is_correct_password = pwd_context.verify(creds.password, hashed_password)
 
     if not (is_correct_username and is_correct_password):
         raise HTTPException(
-            status_code=401,
+            status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Onjuiste gebruikersnaam en/of wachtwoord",
             headers={"WWW-Authenticate": "Bearer"},
         )
+
+# Functie om een nieuw JWT-token te genereren
+def create_jwt_token(data: dict, expires_delta: timedelta = None):
+    to_encode = data.copy()
+    if expires_delta:
+        expire = datetime.utcnow() + expires_delta
+    else:
+        expire = datetime.utcnow() + timedelta(minutes=15)
+    to_encode.update({"exp": expire})
+    encoded_jwt = jwt.encode(to_encode, secrets.token_urlsafe(), algorithm="HS256")
+    return encoded_jwt
+
+# Token-uitgifte-eindpunt
+@app.post("/token")
+async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends()):
+    authenticate(form_data)
+    access_token_expires = timedelta(minutes=15)
+    access_token = create_jwt_token(
+        data={"sub": form_data.username}, expires_delta=access_token_expires
+    )
+    return {"access_token": access_token, "token_type": "bearer"}
 
 # API-eindpunten voor kerstmarkten
 @app.post("/kerstmarkten/", response_model=Kerstmarkt)
