@@ -77,6 +77,51 @@ def read_kerstmarkt(markt_id: int, db: Session = Depends(get_db),token: str = De
         raise HTTPException(status_code=404, detail="Kerstmarkt niet gevonden")
     return kerstmarkt
 
+@app.get("/kerstmarkten/", response_model=list[Kerstmarkt])
+def read_kerstmarkten(db: Session = Depends(get_db)):
+    return crud.read_kerstmarkten(db)
+
+@app.put("/kerstmarkten/{markt_id}", response_model=Kerstmarkt)
+def update_kerstmarkt(markt_id: int, markt: Kerstmarkt, db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
+    existing_kerstmarkt = crud.read_kerstmarkt(db, markt_id)
+    if existing_kerstmarkt is None:
+        raise HTTPException(status_code=404, detail="Kerstmarkt niet gevonden")
+    return crud.update_kerstmarkt(db, markt_id, markt)
+
+
+# API-eindpunten voor kerstgerechten
+@app.post("/kerstgerechten/", response_model=Kerstgerecht)
+def create_kerstgerecht(gerecht: Kerstgerecht, db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
+    return crud.create_kerstgerecht(db, gerecht)
+
+@app.get("/kerstgerechten/{gerecht_id}", response_model=Kerstgerecht)
+def read_kerstgerecht(gerecht_id: int, db: Session = Depends(get_db)):
+    kerstgerecht = crud.read_kerstgerecht(db, gerecht_id)
+    if kerstgerecht is None:
+        raise HTTPException(status_code=404, detail="Kerstgerecht niet gevonden")
+    return kerstgerecht
+
+@app.get("/kerstgerechten/", response_model=list[Kerstgerecht])
+def read_kerstgerechten(db: Session = Depends(get_db)):
+    return crud.read_kerstgerechten(db)
+
+
+# API-eindpunten voor kerstdecoraties
+@app.post("/kerstdecoratie/", response_model=Kerstdecoratie)
+def create_kerstdecoratie(decoratie: Kerstdecoratie, db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
+    return crud.create_kerstdecoratie(db, decoratie)
+
+@app.get("/kerstdecoratie/{decoratie_id}", response_model=Kerstdecoratie)
+def read_kerstdecoratie(decoratie_id: int, db: Session = Depends(get_db)):
+    kerstdecoratie = crud.read_kerstdecoratie(db, decoratie_id)
+    if kerstdecoratie is None:
+        raise HTTPException(status_code=404, detail="Kerstdecoratie niet gevonden")
+    return kerstdecoratie
+
+@app.get("/kerstdecoratie/", response_model=list[Kerstdecoratie])
+def read_kerstdecoraties(db: Session = Depends(get_db)):
+    return crud.read_kerstdecoraties(db)
+
 @app.get("/users/", response_model=list[schemas.User])
 def read_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
     users = crud.get_users(db, skip=skip, limit=limit)
@@ -85,11 +130,6 @@ def read_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db), t
 @app.post("/users/", response_model=schemas.User)
 def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     return crud.create_user(db, user)
-
-
-# Voeg overige eindpunten voor kerstmarkten, kerstgerechten en kerstdecoraties toe op dezelfde manier.
-
-# ...
 
 if __name__ == "__main__":
     import uvicorn
