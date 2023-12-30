@@ -20,6 +20,9 @@ def authenticate_user(db: Session, username: str, password: str):
     if not verify_password(password, user.hashed_password):
         return False
     return user
+def get_password_hash(password):
+    return pwd_context.hash(password)
+
 
 # Creating JWTs
 SECRET_KEY = "cf9071a511f674a52507116a9211bd4c27ee7202dcca7363ad3f8ef79164cc71"

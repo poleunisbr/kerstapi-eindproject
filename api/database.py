@@ -44,7 +44,8 @@ def create_database():
             CREATE TABLE IF NOT EXISTS users (
                 id INTEGER PRIMARY KEY,
                 username TEXT,
-                email TEXT UNIQUE
+                email TEXT UNIQUE,
+                hashed_password TEXT
             )
         """)
 

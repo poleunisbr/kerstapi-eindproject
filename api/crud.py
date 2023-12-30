@@ -1,5 +1,7 @@
 from sqlalchemy.orm import Session
 import models
+import schemas
+import auth
 
 def create_kerstmarkt(db: Session, markt: models.Kerstmarkt):
     db_markt = models.Kerstmarkt(**markt.dict())
@@ -85,8 +87,9 @@ def delete_kerstdecoratie(db: Session, decoratie_id: int):
         db.commit()
     return db_decoratie
 
-def create_user(db: Session, user: models.User):
-    db_user = models.User(**user.dict())
+def create_user(db: Session, user: schemas.UserCreate):
+    hashed_password = auth.get_password_hash(user.password)
+    db_user = models.User(email=user.email, hashed_password=hashed_password)
     db.add(db_user)
     db.commit()
     db.refresh(db_user)
@@ -97,3 +100,6 @@ def read_user(db: Session, user_id: int):
 
 def read_users(db: Session):
     return db.query(models.User).all()
+
+def get_user_by_email(db: Session, email: str):
+    return db.query(models.User).filter(models.User.email == email).first()

@@ -28,9 +28,6 @@ db.add(sample_gerecht_2)
 db.add(sample_decoratie_1)
 db.add(sample_decoratie_2)
 
-# Add user admin
-admin_user = User(username="admin", email="admin@example.com")
-db.add(admin_user)
 
 # Commit the changes
 db.commit()
