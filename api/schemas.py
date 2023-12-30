@@ -20,3 +20,13 @@ class Kerstdecoratie(BaseModel):
     naam: str
     type: str
     prijs: float
+
+class User(BaseModel):
+    username: str
+    email: str
+
+
+class UserCreate(BaseModel):
+    username: str
+    email: str
+    password: str

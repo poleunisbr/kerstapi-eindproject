@@ -1,10 +1,10 @@
 import secrets
 from fastapi import FastAPI, HTTPException, Depends, status
+from jose import jwt
 from sqlalchemy.orm import Session
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from passlib.context import CryptContext
 from datetime import datetime, timedelta
-import jose
 import schemas
 
 import crud
