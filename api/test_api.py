@@ -150,7 +150,7 @@ def test_update_kerstmarkt():
     assert response.status_code == 401
 
     # Geautoriseerd verzoek moet slagen
-    token = get_auth_token("gebruikersnaam", "wachtwoord")
+    token = get_auth_token("test@test.com", "test")
     headers = {"Authorization": f"Bearer {token}"}
     response = requests.put("http://127.0.0.1:8000/kerstmarkten/1", json=kerstmarkt_data, headers=headers)
     assert response.status_code == 200
