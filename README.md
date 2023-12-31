@@ -12,6 +12,8 @@ Ik heb gekozen voor het thema Kerstmis omdat deze opdracht viel tijdens de feest
 
 In deze repo vind je mij REST api waarmee je users kan aanmaken om in te loggen om de rest van de api te kunnen gebruiken, voor de rest heeft mijn api een aantal endpoint in verband met kerstmarkten, kerstdecoraties en kerstgerechten deze zal ik later overlopen in deze file.
 
+Naast de API vind je ook de testfile die ik geschreven heb om de endpoints te testen deze word ook uitgevoerd in github actions nadat de action om de container te pushen naar docker hub klaar is.
+
 ## Okteto cloud
 
 Deze API is gehost op Okteto Cloud. Je kunt de API-documentatie en voorbeelden vinden op de volgende locatie:
