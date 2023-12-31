@@ -1,0 +1,27 @@
+name: Deploy Locally and Test
+
+on:
+  workflow_run:
+    workflows: ["Deliver container"]
+    types:
+      - completed
+
+jobs:
+  deploy_and_test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Build Docker Image
+        run: docker build -t your-image-name .
+
+      - name: Run Docker Container Locally
+        run: docker run -d -p 8000:8000 falcowalko/kerstapi-eindproject
+
+      - name: Run Tests Locally
+        run: |
+          pip install -r api/requirements.txt
+          pytest api/test_api.py
+        continue-on-error: true
