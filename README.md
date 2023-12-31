@@ -104,4 +104,4 @@ Hier is een screenshot van de volledige OpenAPI-docs pagina:
 
 ![OpenAPI Documentatie](/scr/docs.png)
 
-Voor meer info kan je de docs pagina bezoeken.
+Voor meer gedetaileerde info kan je de docs pagina bezoeken.
