@@ -1,9 +1,10 @@
 name: Deploy Locally and Test
 
 on:
-  push:
-    branches:
-      - main
+  workflow_run:
+    workflows: ["Deliver container"]
+    types:
+      - completed
 
 jobs:
   deploy_and_test:
