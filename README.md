@@ -19,59 +19,55 @@ Deze API is gehost op Okteto Cloud. Je kunt de API-documentatie en voorbeelden v
 
 [Documentatie](https://kerst-api-poleunisbr.cloud.okteto.net/docs)
 
-De API maakt gebruik van standaard authenticatie voor sommige endpoints om in te loggen voor gebruik je volgende credentials:
+De API maakt gebruik van Oauth voor sommige endpoints om in te loggen voor gebruik je volgende credentials:
 
-USERNAME: administrator
+USERNAME: test@test.com
 
-PASSWORD: admin-api
+PASSWORD: test
+
+Normaal gezien bestaat deze user als default in de database moest hij er niet in zitten kan je een user aanmaken met een post request naar de /users endpoint.
 
 ## Aantoonbare Werking
 
 Hieronder vind je een aantal voorbeelden van Postman-verzoeken die elk endpoint van de API demonstreren.
 
-### Teams Endpoints
+### Users Endpoints
 
-#### 1. Een nieuw team maken
+#### 1. Een nieuwe user aanmaken
 
-![Create Team](/scr/teamsPost.png)
+![Create User](/scr/post-users.png)
 
-#### 2. Een specifiek team ophalen
+#### 2. De users ophalen
 
-![Get Team](/scr/teamsGetID.png)
+![Get Users](/scr/get-users.png)
 
-#### 3. Alle teams ophalen
+### Token Endpoint
 
-![Get Teams](/scr/teamsGet.png)
+#### 1. Authenticatie token opvragen
 
-#### 4. Een bestaand team bijwerken
+![Token](/scr/token.png)
 
-![Update Team](/scr/teamsPut.png)
+### Kerstmarkten Endpoints
 
-#### 5. Een team verwijderen
+#### 1. Een nieuwe Kerstmarkt aanmaken
 
-![Delete Team](/scr/teamsDelete.png)
+![Create User](/scr/post-kerstmarkten.png)
 
-### Scores Endpoints
+#### 2. De Kerstmarkten ophalen
 
-#### 1. Een nieuwe score toevoegen
+![Get Users](/scr/get-kerstmarkten.png)
 
-![Create Score](/scr/scoresPost.png)
+#### 3. Een specifieke kerstmarkt ophalen
 
-#### 2. Een specifieke score ophalen
+![Get Users](/scr/get-kerstmarktenID.png)
 
-![Get Score](/scr/scoresGetID.png)
+#### 4. Een bestaande Kerstmarkt aanpassen
 
-#### 3. Alle scores ophalen
+![Get Users](/scr/put-kerstmarkten.png)
 
-![Get Scores](/scr/scoresGet.png)
+#### 5. Een Kerstmarkt deleten
 
-#### 4. Een bestaande score bijwerken
-
-![Update Score](/scr/scoresPut.png)
-
-#### 5. Een score verwijderen
-
-![Delete Score](/scr/scoresDelete.png)
+![Get Users](/scr/delete-kerstmarkten.png)
 
 # Volledige OpenAPI Docs
 
