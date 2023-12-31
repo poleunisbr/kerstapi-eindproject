@@ -9,6 +9,7 @@ Naam: Bryan Poleunis
 ## Beschrijving/Thema
 
 Ik heb gekozen voor het thema Kerstmis omdat deze opdracht viel tijdens de feestdagen en ik me bevond in de kerstsfeer bij mij thuis en op bezoek bij familieleden.
+
 In deze repo vind je mij REST api waarmee je users kan aanmaken om in te loggen om de rest van de api te kunnen gebruiken, voor de rest heeft mijn api een aantal endpoint in verband met kerstmarkten, kerstdecoraties en kerstgerechten deze zal ik later overlopen in deze file.
 
 ## Okteto cloud
