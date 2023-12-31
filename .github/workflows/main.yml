@@ -1,0 +1,35 @@
+name: Deploy Locally and Test
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy_and_test:
+    runs-on: ubuntu-latest
+
+    services:
+      # Define your Docker Compose service
+      your-service:
+        image: falcowalko/kerstapi-eindproject:latest
+        ports:
+          - 8000:8000  # Adjust the port mapping as needed
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up Docker Compose
+        run: docker-compose up -d
+
+      - name: Run Tests Locally
+        run: |
+          # Install dependencies
+          pip install -r api/requirements.txt
+
+          # Run pytest
+          pytest api/test_api.py
+
+      - name: Tear Down Docker Compose
+        run: docker-compose down
