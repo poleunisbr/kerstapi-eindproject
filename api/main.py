@@ -133,8 +133,8 @@ def read_kerstdecoraties(db: Session = Depends(get_db)):
     return crud.read_kerstdecoraties(db)
 
 @app.get("/users/", response_model=list[schemas.User])
-def read_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
-    users = crud.get_users(db, skip=skip, limit=limit)
+def read_users(db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
+    users = crud.read_users(db)
     return users
 
 @app.post("/users/", response_model=schemas.User)
