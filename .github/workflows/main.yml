@@ -18,7 +18,7 @@ jobs:
         run: docker build -t your-image-name .
 
       - name: Run Docker Container Locally
-        run: docker run -d -p 8000:8000 kerstapi-eindproject
+        run: docker run -d -p 8000:8000 falcowalko/kerstapi-eindproject
 
       - name: Run Tests Locally
         run: |
