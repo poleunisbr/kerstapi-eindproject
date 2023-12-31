@@ -34,7 +34,7 @@ def create_database():
         cursor.execute("""
             CREATE TABLE IF NOT EXISTS kerstdecoraties (
                 id INTEGER PRIMARY KEY,
-                naam TEXT UNIQUE,
+                naam TEXT,
                 type TEXT,
                 prijs REAL
             )
@@ -44,7 +44,7 @@ def create_database():
             CREATE TABLE IF NOT EXISTS users (
                 id INTEGER PRIMARY KEY,
                 username TEXT,
-                email TEXT UNIQUE,
+                email TEXT,
                 hashed_password TEXT
             )
         """)

@@ -71,7 +71,7 @@ def create_kerstmarkt(
     return crud.create_kerstmarkt(db, markt)
 
 @app.get("/kerstmarkten/{markt_id}", response_model=Kerstmarkt)
-def read_kerstmarkt(markt_id: int, db: Session = Depends(get_db),token: str = Depends(oauth2_scheme)):
+def read_kerstmarkt(markt_id: int, db: Session = Depends(get_db)):
     kerstmarkt = crud.read_kerstmarkt(db, markt_id)
     if kerstmarkt is None:
         raise HTTPException(status_code=404, detail="Kerstmarkt niet gevonden")
