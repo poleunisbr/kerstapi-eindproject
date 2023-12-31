@@ -15,9 +15,9 @@ In deze repo vind je mij REST api waarmee je users kan aanmaken om in te loggen 
 
 Deze API is gehost op Okteto Cloud. Je kunt de API-documentatie en voorbeelden vinden op de volgende locatie:
 
-[API](https://voetbal-api-poleunisbr.cloud.okteto.net/)
+[API](https://kerst-api-poleunisbr.cloud.okteto.net)
 
-[Documentatie](https://voetbal-api-poleunisbr.cloud.okteto.net/docs)
+[Documentatie](https://kerst-api-poleunisbr.cloud.okteto.net/docs)
 
 De API maakt gebruik van standaard authenticatie voor sommige endpoints om in te loggen voor gebruik je volgende credentials:
 
