@@ -89,6 +89,16 @@ def update_kerstmarkt(markt_id: int, markt: Kerstmarkt, db: Session = Depends(ge
     return crud.update_kerstmarkt(db, markt_id, markt)
 
 
+@app.delete("/kerstmarkten/{kerstmarkt_id}", response_model=Kerstmarkt)
+def delete_kerstmarkt(kerstmarkt_id: int, db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
+    kerstmarkt = crud.read_kerstmarkt(db, kerstmarkt_id)
+    if kerstmarkt is None:
+        raise HTTPException(status_code=404, detail="Kerstmarkt not found")
+
+    crud.delete_kerstmarkt(db, kerstmarkt_id)
+    return kerstmarkt
+
+
 # API-eindpunten voor kerstgerechten
 @app.post("/kerstgerechten/", response_model=Kerstgerecht)
 def create_kerstgerecht(gerecht: Kerstgerecht, db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):

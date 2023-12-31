@@ -130,8 +130,6 @@ def test_create_kerstdecoratie():
     token = get_auth_token("test@test.com", "test")
     headers = {"Authorization": f"Bearer {token}"}
     response = requests.post("http://127.0.0.1:8000/kerstdecoratie/", json=kerstdecoratie_data, headers=headers)
-    print(response.status_code)
-    print(response.content)
     assert response.status_code == 200
     assert response.json()["naam"] == kerstdecoratie_data["naam"]
     assert response.json()["type"] == kerstdecoratie_data["type"]
@@ -157,3 +155,16 @@ def test_update_kerstmarkt():
     assert response.json()["naam"] == kerstmarkt_data["naam"]
     assert response.json()["locatie"] == kerstmarkt_data["locatie"]
     assert response.json()["datum"] == kerstmarkt_data["datum"]
+
+def test_delete_kerstmarkt():
+    # Verzoek zonder autorisatietoken moet falen
+    response = requests.delete("http://127.0.0.1:8000/kerstmarkten/2")
+    assert response.status_code == 401
+
+    # Geautoriseerd verzoek moet slagen
+    token = get_auth_token("test@test.com", "test")
+    headers = {"Authorization": f"Bearer {token}"}
+    response = requests.delete("http://127.0.0.1:8000/kerstmarkten/2", headers=headers)
+    assert response.status_code == 200
+    assert response.json()["id"] == 2
+
