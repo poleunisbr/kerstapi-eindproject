@@ -101,6 +101,12 @@ Hieronder vind je een aantal voorbeelden van Postman-verzoeken die elk endpoint 
 
 ![Get Users](/scr/get-kerstdecoratieID.png)
 
+# Pytests In github Actions
+
+Hier is een screenshot van een run van de tests in github:
+
+![OpenAPI Documentatie](/scr/tests-github.png)
+
 # Volledige OpenAPI Docs
 
 Hier is een screenshot van de volledige OpenAPI-docs pagina:
